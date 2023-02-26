@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:csv/csv.dart';
+import 'package:flutter/services.dart';
 
 class LogVolume extends StatefulWidget {
   const LogVolume({Key? key}) : super(key: key);
@@ -18,6 +20,32 @@ class _LogVolumeState extends State<LogVolume> {
   double volume = 0;
   double avDiameter1 = 0;
   double avDiameter2 = 0;
+
+  int reckonerValue = 0;
+
+  //adding the reckoner
+  List<List<dynamic>> table = [];
+
+  // Future <void> _loadCSV() async {
+  //   final _rawData = await rootBundle.loadString("assets/documents/file.csv");
+  //   List<List<dynamic>> _listData =
+  //       const CsvToListConverter().convert(_rawData);
+  //   table = _listData;
+  //   // print(table);
+
+  //   setState(() {
+  //     table = _listData;
+  //   });
+
+  // }
+  Future<List> _loadCSV() async {
+    final _rawData = await rootBundle.loadString("assets/documents/file.csv");
+    List<List<dynamic>> _listData =
+        const CsvToListConverter().convert(_rawData);
+    table = _listData;
+    return _listData;
+    // print(table);
+  }
 
 //
 // List<int> getNumbers(int num1, int num2, int num3) {
@@ -64,6 +92,7 @@ class _LogVolumeState extends State<LogVolume> {
       ),
       body: ListView(
         children: [
+          Text('hello'),
           Form(
             key: _formKey,
             child: Padding(
@@ -106,6 +135,15 @@ class _LogVolumeState extends State<LogVolume> {
                                   width: 5,
                                 ),
                                 Text('Average Diameter Topper  :$avDiameter2'),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Icon(Icons.arrow_upward_rounded),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text('Reckoner Value  :$reckonerValue'),
                               ],
                             )
                           ],
@@ -223,7 +261,9 @@ class _LogVolumeState extends State<LogVolume> {
                             child: const Text('Add'),
                             color: Colors.green,
                             elevation: 9,
-                            onPressed: () {
+                            onPressed: () async {
+                              List tableData = await _loadCSV();
+                              print(tableData);
                               double DB1 = double.parse(DBASE1.text);
                               double DB2 = double.parse(DBASE2.text);
                               double DT1 = double.parse(DTOP1.text);
@@ -236,6 +276,10 @@ class _LogVolumeState extends State<LogVolume> {
                               setState(() {
                                 volume = calculateLogVolume(
                                     avDiameter1, avDiameter2, Len);
+                                reckonerValue = tableData[0][1];
+                                print(table);
+
+                                //  reckonerValue = table[avDiameter1.toInt()][avDiameter2.toInt()];
 
                                 // _result = int.parse(DBASE1.text) +
                                 //     int.parse(DBASE2.text);
@@ -310,9 +354,5 @@ class _LogVolumeState extends State<LogVolume> {
     );
   }
 }
-
-
-
-
 
 //LogVolume

@@ -50,9 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // appBar: AppBar(
       //   title: Text(widget.title),
       // ),
-      body: ListView(children: 
-      
-      [
+      body: ListView(children: [
         // LOG VOLUME CARD
         InkWell(
           onTap: () {
@@ -105,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return const LogVolume();
             }));
+         
           },
           child: Card(
             elevation: 10,
