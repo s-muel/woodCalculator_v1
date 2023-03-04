@@ -26,33 +26,14 @@ class _LogVolumeState extends State<LogVolume> {
   //adding the reckoner
   List<List<dynamic>> table = [];
 
-  // Future <void> _loadCSV() async {
-  //   final _rawData = await rootBundle.loadString("assets/documents/file.csv");
-  //   List<List<dynamic>> _listData =
-  //       const CsvToListConverter().convert(_rawData);
-  //   table = _listData;
-  //   // print(table);
-
-  //   setState(() {
-  //     table = _listData;
-  //   });
-
-  // }
   Future<List> _loadCSV() async {
     final _rawData = await rootBundle.loadString("assets/documents/file2.csv");
     List<List<dynamic>> _listData =
         const CsvToListConverter().convert(_rawData);
     table = _listData;
     return table;
-    // print(table);
   }
 
-//
-// List<int> getNumbers(int num1, int num2, int num3) {
-//   int sum = num1 + num2 + num3;
-//   int product = num1 * num2 * num3;
-//   return [sum, product];
-// }
   List<double> avergeDiameters(
     DB1,
     DB2,
@@ -70,16 +51,15 @@ class _LogVolumeState extends State<LogVolume> {
     return volume;
   }
 
-  // double calculateLogVolume(double DT1, double DT2, double l) {
-  //   double v = (0.785 * pow(DT1 + DT2, 2) * l) / 10000;
-  //   return v;
-  // }
-
-  // double calculateLogVolume(
-  //     double DB1, double DB2, double DT1, double DT2, double l) {
-  //   double v = (0.785 * pow(DB1 + DB2 + DT1 + DT2, 2) * l) / 10000;
-  //   return v;
-  // }
+  // adding color to icon
+  bool setColor = false;
+  Color _getIconColor(bool result) {
+    if (result) {
+      return Colors.green; // assign green color if result is true
+    } else {
+      return Colors.grey; // assign red color if result is false
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +78,6 @@ class _LogVolumeState extends State<LogVolume> {
       ),
       body: ListView(
         children: [
-          Text('hello'),
           Form(
             key: _formKey,
             child: Padding(
@@ -120,7 +99,8 @@ class _LogVolumeState extends State<LogVolume> {
                           // ),
                         ),
 
-                        trailing: Icon(Icons.access_time_filled),
+                        trailing: Icon(Icons.check_circle,
+                            color: _getIconColor(setColor)),
                         // subtitle: Text('Average Diameter Base  :$avDiameter1'),
 
                         subtitle: Column(
@@ -145,30 +125,22 @@ class _LogVolumeState extends State<LogVolume> {
                                     'Average Diameter Topper  :$averageDiameterTop'),
                               ],
                             ),
-                            Row(
-                              children: [
-                                const Icon(Icons.arrow_upward_rounded),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text('Reckoner Value  :$reckonerValue'),
-                              ],
+                            Visibility(
+                              visible: setColor,
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.my_library_books),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text('Reckoner Value  :$reckonerValue'),
+                                ],
+                              ),
                             )
                           ],
                         ),
                       ),
                     ),
-                    // child: Column(
-                    //   children: [
-                    //     Padding(
-                    //       padding: const EdgeInsets.all(40.0),
-                    //       child: Text(
-                    //         'Result: $_result',
-                    //         style: const TextStyle(fontSize: 20),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                   ),
                   const SizedBox(
                     height: 100.0,
@@ -251,7 +223,12 @@ class _LogVolumeState extends State<LogVolume> {
                   Row(
                     children: [
                       Expanded(
-                        child: TextField(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "please";
+                            }
+                          },
                           controller: Lenght,
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
@@ -285,26 +262,69 @@ class _LogVolumeState extends State<LogVolume> {
                               //generating reckoner
                               int reckDBase = averageDiameterBase.toInt();
                               int reckDTop = averageDiameterTop.toInt();
-                              reckonerValue = tableData[reckDBase][reckDTop];
-                              setState(() {
-                                volume = calculateLogVolume(Len, reckonerValue);
-                                print(reckDBase.runtimeType);
+                              if (reckDTop < reckDBase ||
+                                  reckDTop == reckDBase) {
+                                List checker = [];
+                                checker.add(tableData[reckDBase][reckDTop]);
+                                //reckonerValue = tableData[reckDBase][reckDTop];
+                                if (checker[0] is! num || checker[0].isNaN) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                          'Reckoner Error',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                        content:
+                                            const Text('Kindly contact Admin'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  setState(() {
+                                    reckonerValue = checker[0];
+                                    volume =
+                                        calculateLogVolume(Len, reckonerValue);
+                                    setColor = true;
+                                  });
+                                }
 
-                                print(
-                                    'reckbase = $reckDBase recktop = $reckDTop');
-                                print('this is reck value;  + $reckonerValue');
-                                print(reckonerValue.runtimeType);
+                                //double reckcheck = tableData[20][20];
+                                // print(reckcheck.runtimeType);
 
-                                //  reckonerValue = tableData[19][20];
-
-                                // print(tableData[12][11]);
-                                // print('this is  print ${table[19][70]}');
-
-                                //  reckonerValue = table[avDiameter1.toInt()][avDiameter2.toInt()];
-
-                                // _result = int.parse(DBASE1.text) +
-                                //     int.parse(DBASE2.text);
-                              });
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                        'Error',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                      content: const Text(
+                                          'Diameter Topper can not be greater than Diameter Base'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Try Again'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                              ;
                             },
                           ),
                         ),
@@ -324,6 +344,8 @@ class _LogVolumeState extends State<LogVolume> {
                             volume = 0;
                             averageDiameterBase = 0;
                             averageDiameterTop = 0;
+                            reckonerValue = 0;
+                            setColor = false;
                           });
                         },
                         child: Text("Clear"),
@@ -354,7 +376,7 @@ class _LogVolumeState extends State<LogVolume> {
       bottomNavigationBar: BottomAppBar(
         //bottom navigation bar on scaffold
         color: Colors.blue,
-        shape: CircularNotchedRectangle(), //shape of notch
+        shape: const CircularNotchedRectangle(), //shape of notch
         notchMargin:
             5, //notche margin between floating button and bottom appbar
         child: Row(
