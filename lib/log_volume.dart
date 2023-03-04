@@ -153,7 +153,8 @@ class _LogVolumeState extends State<LogVolume> {
                           child: TextFormField(
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return '* Required';
+                                return "*Required";
+                                // return '* Required';
                               }
                               return null;
                             },
@@ -292,38 +293,61 @@ class _LogVolumeState extends State<LogVolume> {
                                 if (reckDTop < reckDBase ||
                                     reckDTop == reckDBase) {
                                   List checker = [];
-                                  
-                                  checker.add(tableData[reckDBase][reckDTop]);
-                                  //reckonerValue = tableData[reckDBase][reckDTop];
-                                  if (checker[0] is! num || checker[0].isNaN) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text(
-                                            'Reckoner Error',
-                                            style: TextStyle(color: Colors.red),
-                                          ),
-                                          content: const Text(
-                                              'Kindly contact Admin'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: const Text('Ok'),
+                                  // handling out of range
+                                  try {
+                                    checker.add(tableData[reckDBase][reckDTop]);
+                                    //reckonerValue = tableData[reckDBase][reckDTop];
+                                    if (checker[0] is! num ||
+                                        checker[0].isNaN) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text(
+                                              'Reckoner Error',
+                                              style:
+                                                  TextStyle(color: Colors.red),
                                             ),
-                                          ],
-                                        );
-                                      },
+                                            content: const Text(
+                                                'Kindly contact Admin'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      //The SnackBar
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Processing Done')),
+                                      );
+                                      setState(() {
+                                        reckonerValue = checker[0];
+                                        volume = calculateLogVolume(
+                                            Len, reckonerValue);
+                                        setColor = true;
+                                      });
+                                    }
+                                  } catch (e) {
+                                    //The SnackBar
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Processing Data')),
                                     );
-                                  } else {
-                                    setState(() {
-                                      reckonerValue = checker[0];
-                                      volume = calculateLogVolume(
-                                          Len, reckonerValue);
-                                      setColor = true;
-                                    });
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              'Diameter values are too huge')),
+                                    );
+                                    restField();
                                   }
 
                                   //double reckcheck = tableData[20][20];
@@ -354,10 +378,10 @@ class _LogVolumeState extends State<LogVolume> {
                                 }
 
                                 //The SnackBar
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Processing Data')),
-                                );
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //   const SnackBar(
+                                //       content: Text('Processing Data')),
+                                // );
                               } else {}
                             },
                           ),
@@ -368,19 +392,7 @@ class _LogVolumeState extends State<LogVolume> {
                         color: Colors.orange,
                         elevation: 9,
                         onPressed: () {
-                          setState(() {
-                            _formKey.currentState!.reset();
-                            DBASE1.clear();
-                            DBASE2.clear();
-                            DTOP1.clear();
-                            DTOP2.clear();
-                            Lenght.clear();
-                            volume = 0;
-                            averageDiameterBase = 0;
-                            averageDiameterTop = 0;
-                            reckonerValue = 0;
-                            setColor = false;
-                          });
+                          restField();
                         },
                         child: Text("Clear"),
                       ))
@@ -429,6 +441,22 @@ class _LogVolumeState extends State<LogVolume> {
         ),
       ),
     );
+  }
+
+  void restField() {
+    return setState(() {
+      _formKey.currentState!.reset();
+      DBASE1.clear();
+      DBASE2.clear();
+      DTOP1.clear();
+      DTOP2.clear();
+      Lenght.clear();
+      volume = 0;
+      averageDiameterBase = 0;
+      averageDiameterTop = 0;
+      reckonerValue = 0;
+      setColor = false;
+    });
   }
 }
 
