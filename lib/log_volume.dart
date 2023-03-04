@@ -112,7 +112,7 @@ class _LogVolumeState extends State<LogVolume> {
                                   width: 5,
                                 ),
                                 Text(
-                                    'Average Diameter Base   :$averageDiameterBase'),
+                                    'Average Diameter Base:  $averageDiameterBase'),
                               ],
                             ),
                             Row(
@@ -122,18 +122,19 @@ class _LogVolumeState extends State<LogVolume> {
                                   width: 5,
                                 ),
                                 Text(
-                                    'Average Diameter Topper  :$averageDiameterTop'),
+                                    'Average Diameter Topper:  $averageDiameterTop'),
                               ],
                             ),
                             Visibility(
                               visible: setColor,
                               child: Row(
                                 children: [
-                                  const Icon(Icons.my_library_books),
+                                  const Icon(Icons.my_library_books,
+                                      color: Colors.green),
                                   const SizedBox(
                                     width: 5,
                                   ),
-                                  Text('Reckoner Value  :$reckonerValue'),
+                                  Text('Reckoner Value:  $reckonerValue'),
                                 ],
                               ),
                             )
@@ -208,7 +209,7 @@ class _LogVolumeState extends State<LogVolume> {
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               label: Text(
-                                "Diameter Tapper 1",
+                                "Diameter Topper 1",
                                 style: TextStyle(fontSize: 12),
                               ),
                               border: OutlineInputBorder(),
@@ -231,7 +232,7 @@ class _LogVolumeState extends State<LogVolume> {
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               label: Text(
-                                "Diameter Tapper 2",
+                                "Diameter Topper 2",
                                 style: TextStyle(fontSize: 12),
                               ),
                               border: OutlineInputBorder(),
@@ -269,8 +270,9 @@ class _LogVolumeState extends State<LogVolume> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: RaisedButton(
-                            child: const Text('Add'),
-                            color: Colors.green,
+                            child: const Text('Submit',
+                                style: TextStyle(color: Colors.white)),
+                            color: Colors.blue,
                             elevation: 9,
                             onPressed: () async {
                               List tableData = await _loadCSV();
@@ -366,6 +368,11 @@ class _LogVolumeState extends State<LogVolume> {
                                             'Diameter Topper can not be greater than Diameter Base'),
                                         actions: [
                                           TextButton(
+                                            style: TextButton.styleFrom(
+                                              primary: Colors.white,
+                                              backgroundColor: Colors.blue,
+                                              onSurface: Colors.grey,
+                                            ),
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
@@ -394,7 +401,8 @@ class _LogVolumeState extends State<LogVolume> {
                         onPressed: () {
                           restField();
                         },
-                        child: Text("Clear"),
+                        child: const Text("Clear",
+                            style: TextStyle(color: Colors.white)),
                       ))
                     ],
                   ),
@@ -415,13 +423,13 @@ class _LogVolumeState extends State<LogVolume> {
         tooltip: 'Increment',
         //insert_chart
         child: const Icon(Icons.bookmarks),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
         splashColor: Colors.green,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BottomAppBar(
         //bottom navigation bar on scaffold
-        color: Colors.blue,
+        color: Colors.green,
         shape: const CircularNotchedRectangle(), //shape of notch
         notchMargin:
             5, //notche margin between floating button and bottom appbar

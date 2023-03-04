@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -103,7 +103,6 @@ class _MyHomePageState extends State<MyHomePage> {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return const LogVolume();
             }));
-         
           },
           child: Card(
             elevation: 10,
@@ -194,13 +193,13 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         //insert_chart
         child: const Icon(Icons.bookmarks),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
         splashColor: Colors.green,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         //bottom navigation bar on scaffold
-        color: Colors.blue,
+        color: Colors.green,
         shape: CircularNotchedRectangle(), //shape of notch
         notchMargin:
             5, //notche margin between floating button and bottom appbar
