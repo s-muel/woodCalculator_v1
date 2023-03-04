@@ -150,7 +150,13 @@ class _LogVolumeState extends State<LogVolume> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: TextField(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '* Required';
+                              }
+                              return null;
+                            },
                             controller: DBASE1,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
@@ -167,7 +173,13 @@ class _LogVolumeState extends State<LogVolume> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: TextField(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '* Required';
+                              }
+                              return null;
+                            },
                             controller: DBASE2,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
@@ -184,7 +196,13 @@ class _LogVolumeState extends State<LogVolume> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: TextField(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '* Required';
+                              }
+                              return null;
+                            },
                             controller: DTOP1,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
@@ -201,7 +219,13 @@ class _LogVolumeState extends State<LogVolume> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: TextField(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '* Required';
+                              }
+                              return null;
+                            },
                             controller: DTOP2,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
@@ -225,9 +249,10 @@ class _LogVolumeState extends State<LogVolume> {
                       Expanded(
                         child: TextFormField(
                           validator: (value) {
-                            if (value!.isEmpty) {
-                              return "please";
+                            if (value == null || value.isEmpty) {
+                              return '* Required';
                             }
+                            return null;
                           },
                           controller: Lenght,
                           keyboardType: TextInputType.number,
@@ -249,82 +274,91 @@ class _LogVolumeState extends State<LogVolume> {
                             onPressed: () async {
                               List tableData = await _loadCSV();
                               print(tableData);
-                              double DB1 = double.parse(DBASE1.text);
-                              double DB2 = double.parse(DBASE2.text);
-                              double DT1 = double.parse(DTOP1.text);
-                              double DT2 = double.parse(DTOP2.text);
-                              double Len = double.parse(Lenght.text);
-                              List<double> numbers =
-                                  avergeDiameters(DB1, DB2, DT1, DT2);
-                              averageDiameterBase = numbers[0].toDouble();
-                              averageDiameterTop = numbers[1].toDouble();
+                              // checking if the form field is not empty
+                              if (_formKey.currentState!.validate()) {
+                                double DB1 = double.parse(DBASE1.text);
+                                double DB2 = double.parse(DBASE2.text);
+                                double DT1 = double.parse(DTOP1.text);
+                                double DT2 = double.parse(DTOP2.text);
+                                double Len = double.parse(Lenght.text);
+                                List<double> numbers =
+                                    avergeDiameters(DB1, DB2, DT1, DT2);
+                                averageDiameterBase = numbers[0].toDouble();
+                                averageDiameterTop = numbers[1].toDouble();
 
-                              //generating reckoner
-                              int reckDBase = averageDiameterBase.toInt();
-                              int reckDTop = averageDiameterTop.toInt();
-                              if (reckDTop < reckDBase ||
-                                  reckDTop == reckDBase) {
-                                List checker = [];
-                                checker.add(tableData[reckDBase][reckDTop]);
-                                //reckonerValue = tableData[reckDBase][reckDTop];
-                                if (checker[0] is! num || checker[0].isNaN) {
+                                //generating reckoner
+                                int reckDBase = averageDiameterBase.toInt();
+                                int reckDTop = averageDiameterTop.toInt();
+                                if (reckDTop < reckDBase ||
+                                    reckDTop == reckDBase) {
+                                  List checker = [];
+                                  
+                                  checker.add(tableData[reckDBase][reckDTop]);
+                                  //reckonerValue = tableData[reckDBase][reckDTop];
+                                  if (checker[0] is! num || checker[0].isNaN) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text(
+                                            'Reckoner Error',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                          content: const Text(
+                                              'Kindly contact Admin'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    setState(() {
+                                      reckonerValue = checker[0];
+                                      volume = calculateLogVolume(
+                                          Len, reckonerValue);
+                                      setColor = true;
+                                    });
+                                  }
+
+                                  //double reckcheck = tableData[20][20];
+                                  // print(reckcheck.runtimeType);
+
+                                } else {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
                                         title: const Text(
-                                          'Reckoner Error',
+                                          'Error',
                                           style: TextStyle(color: Colors.red),
                                         ),
-                                        content:
-                                            const Text('Kindly contact Admin'),
+                                        content: const Text(
+                                            'Diameter Topper can not be greater than Diameter Base'),
                                         actions: [
                                           TextButton(
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
-                                            child: const Text('Ok'),
+                                            child: const Text('Try Again'),
                                           ),
                                         ],
                                       );
                                     },
                                   );
-                                } else {
-                                  setState(() {
-                                    reckonerValue = checker[0];
-                                    volume =
-                                        calculateLogVolume(Len, reckonerValue);
-                                    setColor = true;
-                                  });
                                 }
 
-                                //double reckcheck = tableData[20][20];
-                                // print(reckcheck.runtimeType);
-
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text(
-                                        'Error',
-                                        style: TextStyle(color: Colors.red),
-                                      ),
-                                      content: const Text(
-                                          'Diameter Topper can not be greater than Diameter Base'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text('Try Again'),
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                //The SnackBar
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Processing Data')),
                                 );
-                              }
-                              ;
+                              } else {}
                             },
                           ),
                         ),
