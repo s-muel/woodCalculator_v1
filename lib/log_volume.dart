@@ -18,10 +18,10 @@ class _LogVolumeState extends State<LogVolume> {
   final TextEditingController DTOP2 = TextEditingController();
   final TextEditingController Lenght = TextEditingController();
   double volume = 0;
-  double avDiameter1 = 0;
-  double avDiameter2 = 0;
+  double averageDiameterBase = 0;
+  double averageDiameterTop = 0;
 
-  int reckonerValue = 0;
+  double reckonerValue = 0;
 
   //adding the reckoner
   List<List<dynamic>> table = [];
@@ -39,11 +39,11 @@ class _LogVolumeState extends State<LogVolume> {
 
   // }
   Future<List> _loadCSV() async {
-    final _rawData = await rootBundle.loadString("assets/documents/file.csv");
+    final _rawData = await rootBundle.loadString("assets/documents/file2.csv");
     List<List<dynamic>> _listData =
         const CsvToListConverter().convert(_rawData);
     table = _listData;
-    return _listData;
+    return table;
     // print(table);
   }
 
@@ -64,10 +64,16 @@ class _LogVolumeState extends State<LogVolume> {
     return [DB, DT];
   }
 
-  double calculateLogVolume(double DT1, double DT2, double l) {
-    double v = (0.785 * pow(DT1 + DT2, 2) * l) / 10000;
-    return v;
+// new volume with reckoner
+  double calculateLogVolume(double length, double reckoner) {
+    double volume = length * reckoner;
+    return volume;
   }
+
+  // double calculateLogVolume(double DT1, double DT2, double l) {
+  //   double v = (0.785 * pow(DT1 + DT2, 2) * l) / 10000;
+  //   return v;
+  // }
 
   // double calculateLogVolume(
   //     double DB1, double DB2, double DT1, double DT2, double l) {
@@ -125,7 +131,8 @@ class _LogVolumeState extends State<LogVolume> {
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                Text('Average Diameter Base   :$avDiameter1'),
+                                Text(
+                                    'Average Diameter Base   :$averageDiameterBase'),
                               ],
                             ),
                             Row(
@@ -134,7 +141,8 @@ class _LogVolumeState extends State<LogVolume> {
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                Text('Average Diameter Topper  :$avDiameter2'),
+                                Text(
+                                    'Average Diameter Topper  :$averageDiameterTop'),
                               ],
                             ),
                             Row(
@@ -270,14 +278,27 @@ class _LogVolumeState extends State<LogVolume> {
                               double DT2 = double.parse(DTOP2.text);
                               double Len = double.parse(Lenght.text);
                               List<double> numbers =
-                                  avergeDiameters(DB1, DB2, DT1, DB2);
-                              avDiameter1 = numbers[0];
-                              avDiameter2 = numbers[1];
+                                  avergeDiameters(DB1, DB2, DT1, DT2);
+                              averageDiameterBase = numbers[0].toDouble();
+                              averageDiameterTop = numbers[1].toDouble();
+
+                              //generating reckoner
+                              int reckDBase = averageDiameterBase.toInt();
+                              int reckDTop = averageDiameterTop.toInt();
+                              reckonerValue = tableData[reckDBase][reckDTop];
                               setState(() {
-                                volume = calculateLogVolume(
-                                    avDiameter1, avDiameter2, Len);
-                                reckonerValue = tableData[0][1];
-                                print(table);
+                                volume = calculateLogVolume(Len, reckonerValue);
+                                print(reckDBase.runtimeType);
+
+                                print(
+                                    'reckbase = $reckDBase recktop = $reckDTop');
+                                print('this is reck value;  + $reckonerValue');
+                                print(reckonerValue.runtimeType);
+
+                                //  reckonerValue = tableData[19][20];
+
+                                // print(tableData[12][11]);
+                                // print('this is  print ${table[19][70]}');
 
                                 //  reckonerValue = table[avDiameter1.toInt()][avDiameter2.toInt()];
 
@@ -301,8 +322,8 @@ class _LogVolumeState extends State<LogVolume> {
                             DTOP2.clear();
                             Lenght.clear();
                             volume = 0;
-                            avDiameter1 = 0;
-                            avDiameter2 = 0;
+                            averageDiameterBase = 0;
+                            averageDiameterTop = 0;
                           });
                         },
                         child: Text("Clear"),
