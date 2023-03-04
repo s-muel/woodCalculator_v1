@@ -18,41 +18,22 @@ class _LogVolumeState extends State<LogVolume> {
   final TextEditingController DTOP2 = TextEditingController();
   final TextEditingController Lenght = TextEditingController();
   double volume = 0;
-  double avDiameter1 = 0;
-  double avDiameter2 = 0;
+  double averageDiameterBase = 0;
+  double averageDiameterTop = 0;
 
-  int reckonerValue = 0;
+  double reckonerValue = 0;
 
   //adding the reckoner
   List<List<dynamic>> table = [];
 
-  // Future <void> _loadCSV() async {
-  //   final _rawData = await rootBundle.loadString("assets/documents/file.csv");
-  //   List<List<dynamic>> _listData =
-  //       const CsvToListConverter().convert(_rawData);
-  //   table = _listData;
-  //   // print(table);
-
-  //   setState(() {
-  //     table = _listData;
-  //   });
-
-  // }
   Future<List> _loadCSV() async {
-    final _rawData = await rootBundle.loadString("assets/documents/file.csv");
+    final _rawData = await rootBundle.loadString("assets/documents/file2.csv");
     List<List<dynamic>> _listData =
         const CsvToListConverter().convert(_rawData);
     table = _listData;
-    return _listData;
-    // print(table);
+    return table;
   }
 
-//
-// List<int> getNumbers(int num1, int num2, int num3) {
-//   int sum = num1 + num2 + num3;
-//   int product = num1 * num2 * num3;
-//   return [sum, product];
-// }
   List<double> avergeDiameters(
     DB1,
     DB2,
@@ -64,16 +45,21 @@ class _LogVolumeState extends State<LogVolume> {
     return [DB, DT];
   }
 
-  double calculateLogVolume(double DT1, double DT2, double l) {
-    double v = (0.785 * pow(DT1 + DT2, 2) * l) / 10000;
-    return v;
+// new volume with reckoner
+  double calculateLogVolume(double length, double reckoner) {
+    double volume = length * reckoner;
+    return volume;
   }
 
-  // double calculateLogVolume(
-  //     double DB1, double DB2, double DT1, double DT2, double l) {
-  //   double v = (0.785 * pow(DB1 + DB2 + DT1 + DT2, 2) * l) / 10000;
-  //   return v;
-  // }
+  // adding color to icon
+  bool setColor = false;
+  Color _getIconColor(bool result) {
+    if (result) {
+      return Colors.green; // assign green color if result is true
+    } else {
+      return Colors.grey; // assign red color if result is false
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +78,6 @@ class _LogVolumeState extends State<LogVolume> {
       ),
       body: ListView(
         children: [
-          Text('hello'),
           Form(
             key: _formKey,
             child: Padding(
@@ -114,7 +99,8 @@ class _LogVolumeState extends State<LogVolume> {
                           // ),
                         ),
 
-                        trailing: Icon(Icons.access_time_filled),
+                        trailing: Icon(Icons.check_circle,
+                            color: _getIconColor(setColor)),
                         // subtitle: Text('Average Diameter Base  :$avDiameter1'),
 
                         subtitle: Column(
@@ -125,7 +111,8 @@ class _LogVolumeState extends State<LogVolume> {
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                Text('Average Diameter Base   :$avDiameter1'),
+                                Text(
+                                    'Average Diameter Base:  $averageDiameterBase'),
                               ],
                             ),
                             Row(
@@ -134,33 +121,27 @@ class _LogVolumeState extends State<LogVolume> {
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                Text('Average Diameter Topper  :$avDiameter2'),
+                                Text(
+                                    'Average Diameter Topper:  $averageDiameterTop'),
                               ],
                             ),
-                            Row(
-                              children: [
-                                const Icon(Icons.arrow_upward_rounded),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text('Reckoner Value  :$reckonerValue'),
-                              ],
+                            Visibility(
+                              visible: setColor,
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.my_library_books,
+                                      color: Colors.green),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text('Reckoner Value:  $reckonerValue'),
+                                ],
+                              ),
                             )
                           ],
                         ),
                       ),
                     ),
-                    // child: Column(
-                    //   children: [
-                    //     Padding(
-                    //       padding: const EdgeInsets.all(40.0),
-                    //       child: Text(
-                    //         'Result: $_result',
-                    //         style: const TextStyle(fontSize: 20),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                   ),
                   const SizedBox(
                     height: 100.0,
@@ -170,7 +151,14 @@ class _LogVolumeState extends State<LogVolume> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: TextField(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "*Required";
+                                // return '* Required';
+                              }
+                              return null;
+                            },
                             controller: DBASE1,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
@@ -187,7 +175,13 @@ class _LogVolumeState extends State<LogVolume> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: TextField(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '* Required';
+                              }
+                              return null;
+                            },
                             controller: DBASE2,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
@@ -204,12 +198,18 @@ class _LogVolumeState extends State<LogVolume> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: TextField(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '* Required';
+                              }
+                              return null;
+                            },
                             controller: DTOP1,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               label: Text(
-                                "Diameter Tapper 1",
+                                "Diameter Topper 1",
                                 style: TextStyle(fontSize: 12),
                               ),
                               border: OutlineInputBorder(),
@@ -221,12 +221,18 @@ class _LogVolumeState extends State<LogVolume> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: TextField(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '* Required';
+                              }
+                              return null;
+                            },
                             controller: DTOP2,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               label: Text(
-                                "Diameter Tapper 2",
+                                "Diameter Topper 2",
                                 style: TextStyle(fontSize: 12),
                               ),
                               border: OutlineInputBorder(),
@@ -243,7 +249,13 @@ class _LogVolumeState extends State<LogVolume> {
                   Row(
                     children: [
                       Expanded(
-                        child: TextField(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '* Required';
+                            }
+                            return null;
+                          },
                           controller: Lenght,
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
@@ -258,32 +270,126 @@ class _LogVolumeState extends State<LogVolume> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: RaisedButton(
-                            child: const Text('Add'),
-                            color: Colors.green,
+                            child: const Text('Submit',
+                                style: TextStyle(color: Colors.white)),
+                            color: Colors.blue,
                             elevation: 9,
                             onPressed: () async {
                               List tableData = await _loadCSV();
                               print(tableData);
-                              double DB1 = double.parse(DBASE1.text);
-                              double DB2 = double.parse(DBASE2.text);
-                              double DT1 = double.parse(DTOP1.text);
-                              double DT2 = double.parse(DTOP2.text);
-                              double Len = double.parse(Lenght.text);
-                              List<double> numbers =
-                                  avergeDiameters(DB1, DB2, DT1, DB2);
-                              avDiameter1 = numbers[0];
-                              avDiameter2 = numbers[1];
-                              setState(() {
-                                volume = calculateLogVolume(
-                                    avDiameter1, avDiameter2, Len);
-                                reckonerValue = tableData[0][1];
-                                print(table);
+                              // checking if the form field is not empty
+                              if (_formKey.currentState!.validate()) {
+                                double DB1 = double.parse(DBASE1.text);
+                                double DB2 = double.parse(DBASE2.text);
+                                double DT1 = double.parse(DTOP1.text);
+                                double DT2 = double.parse(DTOP2.text);
+                                double Len = double.parse(Lenght.text);
+                                List<double> numbers =
+                                    avergeDiameters(DB1, DB2, DT1, DT2);
+                                averageDiameterBase = numbers[0].toDouble();
+                                averageDiameterTop = numbers[1].toDouble();
 
-                                //  reckonerValue = table[avDiameter1.toInt()][avDiameter2.toInt()];
+                                //generating reckoner
+                                int reckDBase = averageDiameterBase.toInt();
+                                int reckDTop = averageDiameterTop.toInt();
+                                if (reckDTop < reckDBase ||
+                                    reckDTop == reckDBase) {
+                                  List checker = [];
+                                  // handling out of range
+                                  try {
+                                    checker.add(tableData[reckDBase][reckDTop]);
+                                    //reckonerValue = tableData[reckDBase][reckDTop];
+                                    if (checker[0] is! num ||
+                                        checker[0].isNaN) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text(
+                                              'Reckoner Error',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                            content: const Text(
+                                                'Kindly contact Admin'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      //The SnackBar
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Processing Done')),
+                                      );
+                                      setState(() {
+                                        reckonerValue = checker[0];
+                                        volume = calculateLogVolume(
+                                            Len, reckonerValue);
+                                        setColor = true;
+                                      });
+                                    }
+                                  } catch (e) {
+                                    //The SnackBar
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Processing Data')),
+                                    );
 
-                                // _result = int.parse(DBASE1.text) +
-                                //     int.parse(DBASE2.text);
-                              });
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              'Diameter values are too huge')),
+                                    );
+                                    restField();
+                                  }
+
+                                  //double reckcheck = tableData[20][20];
+                                  // print(reckcheck.runtimeType);
+
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                          'Error',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                        content: const Text(
+                                            'Diameter Topper can not be greater than Diameter Base'),
+                                        actions: [
+                                          TextButton(
+                                            style: TextButton.styleFrom(
+                                              primary: Colors.white,
+                                              backgroundColor: Colors.blue,
+                                              onSurface: Colors.grey,
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Try Again'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+
+                                //The SnackBar
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //   const SnackBar(
+                                //       content: Text('Processing Data')),
+                                // );
+                              } else {}
                             },
                           ),
                         ),
@@ -293,19 +399,10 @@ class _LogVolumeState extends State<LogVolume> {
                         color: Colors.orange,
                         elevation: 9,
                         onPressed: () {
-                          setState(() {
-                            _formKey.currentState!.reset();
-                            DBASE1.clear();
-                            DBASE2.clear();
-                            DTOP1.clear();
-                            DTOP2.clear();
-                            Lenght.clear();
-                            volume = 0;
-                            avDiameter1 = 0;
-                            avDiameter2 = 0;
-                          });
+                          restField();
                         },
-                        child: Text("Clear"),
+                        child: const Text("Clear",
+                            style: TextStyle(color: Colors.white)),
                       ))
                     ],
                   ),
@@ -326,14 +423,14 @@ class _LogVolumeState extends State<LogVolume> {
         tooltip: 'Increment',
         //insert_chart
         child: const Icon(Icons.bookmarks),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
         splashColor: Colors.green,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BottomAppBar(
         //bottom navigation bar on scaffold
-        color: Colors.blue,
-        shape: CircularNotchedRectangle(), //shape of notch
+        color: Colors.green,
+        shape: const CircularNotchedRectangle(), //shape of notch
         notchMargin:
             5, //notche margin between floating button and bottom appbar
         child: Row(
@@ -352,6 +449,22 @@ class _LogVolumeState extends State<LogVolume> {
         ),
       ),
     );
+  }
+
+  void restField() {
+    return setState(() {
+      _formKey.currentState!.reset();
+      DBASE1.clear();
+      DBASE2.clear();
+      DTOP1.clear();
+      DTOP2.clear();
+      Lenght.clear();
+      volume = 0;
+      averageDiameterBase = 0;
+      averageDiameterTop = 0;
+      reckonerValue = 0;
+      setColor = false;
+    });
   }
 }
 
