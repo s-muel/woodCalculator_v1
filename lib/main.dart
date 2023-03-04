@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forest1/log_volume.dart';
+import 'package:forest1/lumber_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -101,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
         InkWell(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const LogVolume();
+              return const LumberVolume();
             }));
           },
           child: Card(
@@ -146,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
         InkWell(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const LogVolume();
+              return const LumberVolume();
             }));
           },
           child: Card(
