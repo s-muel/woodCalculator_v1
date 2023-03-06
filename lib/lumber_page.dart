@@ -27,12 +27,12 @@ class _LumberVolumeState extends State<LumberVolume> {
   List result(double thick, double width, double length, double noOfPieces) {
     List value = [];
     double innerWidth = width / 1000;
-    double innerLength = length / 1000;
+    double innerThickness = thick / 1000;
     double volume;
 
-    volume = thick * innerWidth * innerLength * noOfPieces;
+    volume = (innerThickness * innerWidth * length * noOfPieces) / 1000;
 
-    value.addAll([volume, thick, innerWidth, innerLength, noOfPieces]);
+    value.addAll([volume, innerThickness, innerWidth, length, noOfPieces]);
     return value;
   }
 
@@ -67,35 +67,59 @@ class _LumberVolumeState extends State<LumberVolume> {
                         child: ListTile(
                           title: Text(
                             'Volume (m):  $volume',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
 
                             // ),
                           ),
                           trailing: const Icon(
                             Icons.check_circle,
                           ),
-                          subtitle: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(CupertinoIcons.add),
-                                  Text('Thickness(m):$thickness'),
-                                  const Icon(Icons.arrow_upward_rounded),
-                                  Text('Width (m):$width'),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(Icons.arrow_upward_rounded),
-                                  Text('Length (m):$length'),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  const Icon(Icons.arrow_upward_rounded),
-                                  Text('N0. Pieces:$noOfPieces'),
-                                ],
-                              ),
-                            ],
+                          subtitle: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(
+                                        CupertinoIcons
+                                            .rectangle_compress_vertical,
+                                        size: 17),
+                                    Text('Thickness(m):  $thickness'),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                  ],
+                                ),
+                                Row(children: [
+                                  const Icon(
+                                      CupertinoIcons.rectangle_expand_vertical,
+                                      size: 17),
+                                  Text('Width (m):  $width'),
+                                ]),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                        CupertinoIcons
+                                            .arrow_left_right_square_fill,
+                                        size: 17),
+                                    Text('Length (m):  $length'),
+                                    const SizedBox(
+                                      width: 7,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                        CupertinoIcons.square_stack_3d_up,
+                                        size: 17,
+                                        color: Colors.green),
+                                    Text('N0. Pieces:  $noOfPieces'),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
