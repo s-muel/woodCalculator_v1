@@ -122,7 +122,7 @@ class _LogVolumeState extends State<LogVolume> {
                                   width: 5,
                                 ),
                                 Text(
-                                    'Average Diameter Topper:  $averageDiameterTop'),
+                                    'Average Diameter Tapper:  $averageDiameterTop'),
                               ],
                             ),
                             Visibility(
@@ -209,7 +209,7 @@ class _LogVolumeState extends State<LogVolume> {
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               label: Text(
-                                "Diameter Topper 1",
+                                "Diameter Tapper 1",
                                 style: TextStyle(fontSize: 12),
                               ),
                               border: OutlineInputBorder(),
@@ -232,7 +232,7 @@ class _LogVolumeState extends State<LogVolume> {
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               label: Text(
-                                "Diameter Topper 2",
+                                "Diameter Tapper 2",
                                 style: TextStyle(fontSize: 12),
                               ),
                               border: OutlineInputBorder(),
@@ -365,7 +365,7 @@ class _LogVolumeState extends State<LogVolume> {
                                           style: TextStyle(color: Colors.red),
                                         ),
                                         content: const Text(
-                                            'Diameter Topper can not be greater than Diameter Base'),
+                                            'Diameter Tapper can not be greater than Diameter Base'),
                                         actions: [
                                           TextButton(
                                             style: TextButton.styleFrom(
