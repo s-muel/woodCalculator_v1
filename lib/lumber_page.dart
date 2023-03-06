@@ -30,7 +30,7 @@ class _LumberVolumeState extends State<LumberVolume> {
     double innerThickness = thick / 1000;
     double volume;
 
-    volume = (innerThickness * innerWidth * length * noOfPieces) / 1000;
+    volume = (innerThickness * innerWidth * length * noOfPieces);
 
     value.addAll([volume, innerThickness, innerWidth, length, noOfPieces]);
     return value;
@@ -66,7 +66,7 @@ class _LumberVolumeState extends State<LumberVolume> {
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
                           title: Text(
-                            'Volume (m):  $volume',
+                            'Volume (m3):  $volume',
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
 

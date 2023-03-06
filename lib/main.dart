@@ -51,144 +51,147 @@ class _MyHomePageState extends State<MyHomePage> {
       // appBar: AppBar(
       //   title: Text(widget.title),
       // ),
-      body: ListView(children: [
-        // LOG VOLUME CARD
-        InkWell(
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const LogVolume();
-            }));
-          },
-          child: Card(
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10.0),
-                    topRight: Radius.circular(10.0),
-                  ),
-                  child: Image.asset(
-                    'assets/images/timber.jpg',
-                    height: 150.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const ListTile(
-                  title: Text(
-                    'Log Volume',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: ListView(children: [
+          // LOG VOLUME CARD
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const LogVolume();
+              }));
+            },
+            child: Card(
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                    ),
+                    child: Image.asset(
+                      'assets/images/timber.jpg',
+                      height: 150.0,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  subtitle: Text(
-                    'Get the volume of a timber log',
-                    style: TextStyle(
-                      fontSize: 16.0,
+                  const ListTile(
+                    title: Text(
+                      'Log Volume',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'Get the volume of a timber log',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
 
-        //LUMBER VOLUME CARD
-        InkWell(
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const LumberVolume();
-            }));
-          },
-          child: Card(
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10.0),
-                    topRight: Radius.circular(10.0),
-                  ),
-                  child: Image.asset(
-                    'assets/images/lumber.jpg',
-                    height: 150.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const ListTile(
-                  title: Text(
-                    'Lumber Volume',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
+          //LUMBER VOLUME CARD
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const LumberVolume();
+              }));
+            },
+            child: Card(
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                    ),
+                    child: Image.asset(
+                      'assets/images/lumber.jpg',
+                      height: 150.0,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  subtitle: Text(
-                    'Get the volume of a Lumber',
-                    style: TextStyle(
-                      fontSize: 16.0,
+                  const ListTile(
+                    title: Text(
+                      'Lumber Volume',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'Get the volume of a Lumber',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
 
-        InkWell(
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const LumberVolume();
-            }));
-          },
-          child: Card(
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10.0),
-                    topRight: Radius.circular(10.0),
-                  ),
-                  child: Image.asset(
-                    'assets/images/venner.jpg',
-                    height: 150.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const ListTile(
-                  title: Text(
-                    'Veneer Volume',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const LumberVolume();
+              }));
+            },
+            child: Card(
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                    ),
+                    child: Image.asset(
+                      'assets/images/venner.jpg',
+                      height: 150.0,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  subtitle: Text(
-                    'Get the volume of a Veneer',
-                    style: TextStyle(
-                      fontSize: 16.0,
+                  const ListTile(
+                    title: Text(
+                      'Veneer Volume',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'Get the volume of a Veneer',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ]),
+        ]),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
