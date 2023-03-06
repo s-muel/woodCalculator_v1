@@ -40,6 +40,7 @@ class _LumberVolumeState extends State<LumberVolume> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(50),
@@ -293,6 +294,36 @@ class _LumberVolumeState extends State<LumberVolume> {
                 ),
               ))
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Increment',
+        //insert_chart
+        child: const Icon(Icons.bookmarks),
+        backgroundColor: Colors.blue,
+        splashColor: Colors.lightGreenAccent,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      bottomNavigationBar: BottomAppBar(
+        //bottom navigation bar on scaffold
+        color: Colors.blue,
+        shape: const CircularNotchedRectangle(), //shape of notch
+        notchMargin:
+            5, //notche margin between floating button and bottom appbar
+        child: Row(
+          //children inside bottom appbar
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.home,
+                color: Colors.white,
+              ),
+              onPressed: () {},
+            ),
+          ],
+        ),
       ),
     );
   }

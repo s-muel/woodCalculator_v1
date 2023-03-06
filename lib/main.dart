@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forest1/log_volume.dart';
 import 'package:forest1/lumber_page.dart';
+import 'package:forest1/veneer_volume.dart';
 
 void main() {
   runApp(const MyApp());
@@ -149,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
           InkWell(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const LumberVolume();
+                return const VeneerVolume();
               }));
             },
             child: Card(
@@ -200,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.green,
         splashColor: Colors.green,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BottomAppBar(
         //bottom navigation bar on scaffold
         color: Colors.green,
@@ -215,20 +216,6 @@ class _MyHomePageState extends State<MyHomePage> {
             IconButton(
               icon: Icon(
                 Icons.menu,
-                color: Colors.white,
-              ),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.people,
                 color: Colors.white,
               ),
               onPressed: () {},
