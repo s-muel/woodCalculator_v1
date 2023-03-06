@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LumberVolume extends StatefulWidget {
@@ -77,7 +78,7 @@ class _LumberVolumeState extends State<LumberVolume> {
                             children: [
                               Row(
                                 children: [
-                                  const Icon(Icons.arrow_circle_up),
+                                  const Icon(CupertinoIcons.add),
                                   Text('Thickness(m):$thickness'),
                                   const Icon(Icons.arrow_upward_rounded),
                                   Text('Width (m):$width'),
