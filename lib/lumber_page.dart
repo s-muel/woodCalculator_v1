@@ -77,7 +77,7 @@ class _LumberVolumeState extends State<LumberVolume> {
                             children: [
                               Row(
                                 children: [
-                                  const Icon(Icons.arrow_downward_outlined),
+                                  const Icon(Icons.arrow_circle_up),
                                   Text('Thickness(m):$thickness'),
                                   const Icon(Icons.arrow_upward_rounded),
                                   Text('Width (m):$width'),
@@ -229,6 +229,9 @@ class _LumberVolumeState extends State<LumberVolume> {
                                     noOfPieces =
                                         funcResults[4].toStringAsFixed(2);
                                   });
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Processing Done')));
                                 }
                               },
                               child: const Text('Submit'),
@@ -240,7 +243,23 @@ class _LumberVolumeState extends State<LumberVolume> {
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.orange,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                return setState(() {
+                                  //clearing the form fields
+                                  _formKey.currentState!.reset();
+                                  thicknessController.clear();
+                                  widthController.clear();
+                                  lengthController.clear();
+                                  noOfPiecesController.clear();
+
+                                  // clearing the card results
+                                  volume = "";
+                                  thickness = "";
+                                  width = "";
+                                  length = "";
+                                  noOfPieces = "";
+                                });
+                              },
                               child: const Text('Clear')),
                         )
                       ],
