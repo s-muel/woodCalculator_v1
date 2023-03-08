@@ -49,7 +49,7 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                 bottomRight: Radius.circular(50),
                 bottomLeft: Radius.circular(50))),
         title: const Text(
-          "Veneer Volume Calculator",
+          "Sliced Veneer Volume",
           style: TextStyle(
             fontSize: 20,
           ),

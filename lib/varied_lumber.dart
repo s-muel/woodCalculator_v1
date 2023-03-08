@@ -51,7 +51,7 @@ class _VariedLumberVolumeState extends State<VariedLumberVolume> {
                 bottomRight: Radius.circular(50),
                 bottomLeft: Radius.circular(50))),
         title: const Text(
-          "Veneer Volume Calculator",
+          "Lumber with Varied Width",
           style: TextStyle(
             fontSize: 20,
           ),

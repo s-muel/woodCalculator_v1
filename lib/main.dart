@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
       //   title: Text(widget.title),
       // ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(20.0),
         child: ListView(children: [
           // LOG VOLUME CARD
           InkWell(
@@ -221,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const RotaryVolume()));
                         },
-                        child: const Text('Rotary Volume'),
+                        child: const Text('Rotary Veneer'),
                       ),
                       SizedBox(),
                       TextButton(
@@ -235,7 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const VeneerVolume()));
                         },
-                        child: const Text('Sliced Volume'),
+                        child: const Text('Sliced Veneer'),
                       ),
                     ],
                   );

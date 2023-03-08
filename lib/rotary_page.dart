@@ -46,7 +46,7 @@ class _RotaryVolumeState extends State<RotaryVolume> {
                 bottomRight: Radius.circular(50),
                 bottomLeft: Radius.circular(50))),
         title: const Text(
-          "Rotary Volume Calculator",
+          "Rotary Veneer Volume",
           style: TextStyle(
             fontSize: 20,
           ),
