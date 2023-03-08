@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forest1/log_volume.dart';
 import 'package:forest1/lumber_page.dart';
 import 'package:forest1/rotary_page.dart';
+import 'package:forest1/varied_lumber.dart';
 import 'package:forest1/veneer_volume.dart';
 
 void main() {
@@ -104,10 +105,51 @@ class _MyHomePageState extends State<MyHomePage> {
 
           //LUMBER VOLUME CARD
           InkWell(
+            // Selecting options
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const LumberVolume();
-              }));
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text(
+                      'ALERT',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    content:
+                        const Text('Select Lumber with fixed or varied width'),
+                    actions: [
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          primary: Colors.white,
+                          backgroundColor: Colors.blue,
+                          onSurface: Colors.grey,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const LumberVolume()));
+                        },
+                        child: const Text('Fixed Width'),
+                      ),
+                      const SizedBox(),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          primary: Colors.white,
+                          backgroundColor: Colors.blue,
+                          onSurface: Colors.grey,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  const VariedLumberVolume()));
+                        },
+                        child: const Text('Varied Width'),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
             child: Card(
               elevation: 10,
