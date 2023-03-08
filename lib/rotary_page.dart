@@ -1,41 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class VeneerVolume extends StatefulWidget {
-  const VeneerVolume({Key? key}) : super(key: key);
+class RotaryVolume extends StatefulWidget {
+  const RotaryVolume({Key? key}) : super(key: key);
 
   @override
-  State<VeneerVolume> createState() => _VeneerVolumeState();
+  State<RotaryVolume> createState() => _RotaryVolumeState();
 }
 
-class _VeneerVolumeState extends State<VeneerVolume> {
+class _RotaryVolumeState extends State<RotaryVolume> {
   // form Controllers
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController thicknessController = TextEditingController();
-  final TextEditingController areaController = TextEditingController();
+  final TextEditingController widthController = TextEditingController();
   final TextEditingController lengthController = TextEditingController();
   final TextEditingController noOfPiecesController = TextEditingController();
 
   // initial Variables for the card
   String volume = "";
   String thickness = "";
-  String area = "";
+  String width = "";
   String length = "";
   String noOfPieces = "";
 
   //function for volume
-  List result(double thick, double area) {
+  List result(double thick, double width, length, noOfPieces) {
     List value = [];
     double innerThickness = thick / 1000;
+    double innerWidth = width / 1000;
     double volume;
 
-    volume = (innerThickness * area);
+    volume = (innerThickness * innerWidth * length * noOfPieces);
 
-    value.addAll([
-      volume,
-      innerThickness,
-      area,
-    ]);
+    value.addAll([volume, innerThickness, innerWidth, length, noOfPieces]);
     return value;
   }
 
@@ -43,13 +40,13 @@ class _VeneerVolumeState extends State<VeneerVolume> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.brown,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(50),
                 bottomLeft: Radius.circular(50))),
         title: const Text(
-          "Veneer Volume Calculator",
+          "Rotary Volume Calculator",
           style: TextStyle(
             fontSize: 20,
           ),
@@ -65,7 +62,7 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                 children: [
                   Card(
                     elevation: 5,
-                    shadowColor: Colors.blueGrey,
+                    shadowColor: Colors.brown,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
@@ -99,8 +96,27 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                                 const Icon(
                                     CupertinoIcons.rectangle_expand_vertical,
                                     size: 17),
-                                Text('Area (m2):  $area'),
+                                Text('Width (m):  $width'),
                               ]),
+                              Row(
+                                children: [
+                                  const Icon(
+                                      CupertinoIcons
+                                          .arrow_left_right_square_fill,
+                                      size: 17),
+                                  Text('Length (m):  $length'),
+                                  const SizedBox(
+                                    width: 7,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(CupertinoIcons.square_stack_3d_up,
+                                      size: 17, color: Colors.green),
+                                  Text('N0. Sheet:  $noOfPieces'),
+                                ],
+                              )
                             ],
                           ),
                         ),
@@ -147,15 +163,61 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                               }
                               return null;
                             },
-                            controller: areaController,
+                            controller: widthController,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               label: Text(
-                                "Area",
+                                "Width",
                                 style: TextStyle(fontSize: 12),
                               ),
                               border: OutlineInputBorder(),
-                              hintText: 'm2',
+                              hintText: 'mm',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '* Required';
+                              }
+                              return null;
+                            },
+                            controller: lengthController,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              label: Text(
+                                "Length",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              border: OutlineInputBorder(),
+                              hintText: 'm',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '* Required';
+                              }
+                              return null;
+                            },
+                            controller: noOfPiecesController,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              label: Text(
+                                "NO. of Sheet",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              border: OutlineInputBorder(),
+                              hintText: '0',
                             ),
                           ),
                         ),
@@ -169,7 +231,7 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                           padding: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.blueGrey,
+                              primary: Colors.brown,
                             ),
                             onPressed: () async {
                               // double noOf =
@@ -178,12 +240,17 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                               if (_formKey.currentState!.validate()) {
                                 List funcResults = result(
                                   double.parse(thicknessController.text),
-                                  double.parse(areaController.text),
+                                  double.parse(widthController.text),
+                                  double.parse(lengthController.text),
+                                  double.parse(noOfPiecesController.text),
                                 );
                                 setState(() {
                                   volume = funcResults[0].toStringAsFixed(3);
-                                  thickness = funcResults[1].toStringAsFixed(5);
-                                  area = funcResults[2].toStringAsFixed(3);
+                                  thickness = funcResults[1].toStringAsFixed(2);
+                                  width = funcResults[2].toStringAsFixed(2);
+                                  length = funcResults[3].toStringAsFixed(2);
+                                  noOfPieces =
+                                      funcResults[4].toStringAsFixed(2);
                                 });
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -204,14 +271,14 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                                 //clearing the form fields
                                 _formKey.currentState!.reset();
                                 thicknessController.clear();
-                                areaController.clear();
+                                widthController.clear();
                                 lengthController.clear();
                                 noOfPiecesController.clear();
 
                                 // clearing the card results
                                 volume = "";
                                 thickness = "";
-                                area = "";
+                                width = "";
                                 length = "";
                                 noOfPieces = "";
                               });
@@ -231,14 +298,14 @@ class _VeneerVolumeState extends State<VeneerVolume> {
         tooltip: 'Increment',
         //insert_chart
         child: const Icon(Icons.bookmarks),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.brown,
         splashColor: Colors.white,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BottomAppBar(
         //bottom navigation bar on scaffold
-        color: Colors.blueGrey,
-        shape: const CircularNotchedRectangle(), //shape of notch
+        color: Colors.brown,
+        shape: CircularNotchedRectangle(), //shape of notch
         notchMargin:
             5, //notche margin between floating button and bottom appbar
         child: Row(

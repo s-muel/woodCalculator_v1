@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forest1/log_volume.dart';
 import 'package:forest1/lumber_page.dart';
+import 'package:forest1/rotary_page.dart';
 import 'package:forest1/veneer_volume.dart';
 
 void main() {
@@ -148,11 +149,58 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
 
           InkWell(
+            // onTap: () {
+            //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+            //     return const RotaryVolume();
+            //   }));
+            // },
+
+            // Selecting options
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const VeneerVolume();
-              }));
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text(
+                      'ALERT',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    content:
+                        const Text('Select either Rotary or Sliced Veneer'),
+                    actions: [
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          primary: Colors.white,
+                          backgroundColor: Colors.blue,
+                          onSurface: Colors.grey,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const RotaryVolume()));
+                        },
+                        child: const Text('Rotary Volume'),
+                      ),
+                      SizedBox(),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          primary: Colors.white,
+                          backgroundColor: Colors.blue,
+                          onSurface: Colors.grey,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const VeneerVolume()));
+                        },
+                        child: const Text('Sliced Volume'),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
+
             child: Card(
               elevation: 10,
               shape: RoundedRectangleBorder(
@@ -205,7 +253,7 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomAppBar(
         //bottom navigation bar on scaffold
         color: Colors.green,
-        shape: CircularNotchedRectangle(), //shape of notch
+        shape: const CircularNotchedRectangle(), //shape of notch
         notchMargin:
             5, //notche margin between floating button and bottom appbar
         child: Row(
@@ -214,7 +262,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.menu,
                 color: Colors.white,
               ),
