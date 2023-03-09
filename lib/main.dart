@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
       //   title: Text(widget.title),
       // ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(18.0),
         child: ListView(children: [
           // LOG VOLUME CARD
           InkWell(
@@ -64,41 +64,44 @@ class _MyHomePageState extends State<MyHomePage> {
                 return const LogVolume();
               }));
             },
-            child: Card(
-              elevation: 10,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                    ),
-                    child: Image.asset(
-                      'assets/images/timber.jpg',
-                      height: 150.0,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const ListTile(
-                    title: Text(
-                      'Log Volume',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0),
+                      ),
+                      child: Image.asset(
+                        'assets/images/timber.jpg',
+                        height: 150.0,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    subtitle: Text(
-                      'Get the volume of a timber log',
-                      style: TextStyle(
-                        fontSize: 16.0,
+                    const ListTile(
+                      title: Text(
+                        'Log Volume',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'Get the volume of a timber log',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -151,41 +154,44 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               );
             },
-            child: Card(
-              elevation: 10,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                    ),
-                    child: Image.asset(
-                      'assets/images/lumber.jpg',
-                      height: 150.0,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const ListTile(
-                    title: Text(
-                      'Lumber Volume',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0),
+                      ),
+                      child: Image.asset(
+                        'assets/images/lumber.jpg',
+                        height: 150.0,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    subtitle: Text(
-                      'Get the volume of a Lumber',
-                      style: TextStyle(
-                        fontSize: 16.0,
+                    const ListTile(
+                      title: Text(
+                        'Lumber Volume',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'Get the volume of a Lumber',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -243,41 +249,44 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
 
-            child: Card(
-              elevation: 10,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                    ),
-                    child: Image.asset(
-                      'assets/images/venner.jpg',
-                      height: 150.0,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const ListTile(
-                    title: Text(
-                      'Veneer Volume',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0),
+                      ),
+                      child: Image.asset(
+                        'assets/images/venner.jpg',
+                        height: 150.0,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    subtitle: Text(
-                      'Get the volume of a Veneer',
-                      style: TextStyle(
-                        fontSize: 16.0,
+                    const ListTile(
+                      title: Text(
+                        'Veneer Volume',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'Get the volume of a Veneer',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
