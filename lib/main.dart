@@ -54,243 +54,245 @@ class _MyHomePageState extends State<MyHomePage> {
       // appBar: AppBar(
       //   title: Text(widget.title),
       // ),
-      body: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: ListView(children: [
-          // LOG VOLUME CARD
-          InkWell(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const LogVolume();
-              }));
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.circular(10.0),
-                      ),
-                      child: Image.asset(
-                        'assets/images/timber.jpg',
-                        height: 150.0,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const ListTile(
-                      title: Text(
-                        'Log Volume',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: ListView(children: [
+            // LOG VOLUME CARD
+            InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const LogVolume();
+                }));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10.0),
+                          topRight: Radius.circular(10.0),
+                        ),
+                        child: Image.asset(
+                          'assets/images/timber.jpg',
+                          height: 150.0,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      subtitle: Text(
-                        'Get the volume of a timber log',
-                        style: TextStyle(
-                          fontSize: 16.0,
+                      const ListTile(
+                        title: Text(
+                          'Log Volume',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          //LUMBER VOLUME CARD
-          InkWell(
-            // Selecting options
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text(
-                      'ALERT',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    content:
-                        const Text('Select Lumber with fixed or varied width'),
-                    actions: [
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          primary: Colors.white,
-                          backgroundColor: Colors.blue,
-                          onSurface: Colors.grey,
+                        subtitle: Text(
+                          'Get the volume of a timber log',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
                         ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const LumberVolume()));
-                        },
-                        child: const Text('Fixed Width'),
-                      ),
-                      const SizedBox(),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          primary: Colors.white,
-                          backgroundColor: Colors.blue,
-                          onSurface: Colors.grey,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  const VariedLumberVolume()));
-                        },
-                        child: const Text('Varied Width'),
                       ),
                     ],
-                  );
-                },
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.circular(10.0),
-                      ),
-                      child: Image.asset(
-                        'assets/images/lumber.jpg',
-                        height: 150.0,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const ListTile(
-                      title: Text(
-                        'Lumber Volume',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
-                        ),
-                      ),
-                      subtitle: Text(
-                        'Get the volume of a Lumber',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
 
-          InkWell(
-            // onTap: () {
-            //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //     return const RotaryVolume();
-            //   }));
-            // },
-
-            // Selecting options
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text(
-                      'ALERT',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    content:
-                        const Text('Select either Rotary or Sliced Veneer'),
-                    actions: [
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          primary: Colors.white,
-                          backgroundColor: Colors.blue,
-                          onSurface: Colors.grey,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const RotaryVolume()));
-                        },
-                        child: const Text('Rotary Veneer'),
+            //LUMBER VOLUME CARD
+            InkWell(
+              // Selecting options
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text(
+                        'ALERT',
+                        style: TextStyle(color: Colors.red),
                       ),
-                      SizedBox(),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          primary: Colors.white,
-                          backgroundColor: Colors.blue,
-                          onSurface: Colors.grey,
+                      content: const Text(
+                          'Select Lumber with fixed or varied width'),
+                      actions: [
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            backgroundColor: Colors.blue,
+                            onSurface: Colors.grey,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const LumberVolume()));
+                          },
+                          child: const Text('Fixed Width'),
                         ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const VeneerVolume()));
-                        },
-                        child: const Text('Sliced Veneer'),
+                        const SizedBox(),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            backgroundColor: Colors.blue,
+                            onSurface: Colors.grey,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const VariedLumberVolume()));
+                          },
+                          child: const Text('Varied Width'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10.0),
+                          topRight: Radius.circular(10.0),
+                        ),
+                        child: Image.asset(
+                          'assets/images/lumber.jpg',
+                          height: 150.0,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const ListTile(
+                        title: Text(
+                          'Lumber Volume',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                        subtitle: Text(
+                          'Get the volume of a Lumber',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
                       ),
                     ],
-                  );
-                },
-              );
-            },
-
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.circular(10.0),
-                      ),
-                      child: Image.asset(
-                        'assets/images/venner.jpg',
-                        height: 150.0,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const ListTile(
-                      title: Text(
-                        'Veneer Volume',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
-                        ),
-                      ),
-                      subtitle: Text(
-                        'Get the volume of a Veneer',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ]),
+
+            InkWell(
+              // onTap: () {
+              //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+              //     return const RotaryVolume();
+              //   }));
+              // },
+
+              // Selecting options
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text(
+                        'ALERT',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      content:
+                          const Text('Select either Rotary or Sliced Veneer'),
+                      actions: [
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            backgroundColor: Colors.blue,
+                            onSurface: Colors.grey,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const RotaryVolume()));
+                          },
+                          child: const Text('Rotary Veneer'),
+                        ),
+                        SizedBox(),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            backgroundColor: Colors.blue,
+                            onSurface: Colors.grey,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const VeneerVolume()));
+                          },
+                          child: const Text('Sliced Veneer'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10.0),
+                          topRight: Radius.circular(10.0),
+                        ),
+                        child: Image.asset(
+                          'assets/images/venner.jpg',
+                          height: 150.0,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const ListTile(
+                        title: Text(
+                          'Veneer Volume',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                        subtitle: Text(
+                          'Get the volume of a Veneer',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ]),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
