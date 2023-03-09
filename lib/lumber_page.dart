@@ -46,7 +46,7 @@ class _LumberVolumeState extends State<LumberVolume> {
                 bottomRight: Radius.circular(50),
                 bottomLeft: Radius.circular(50))),
         title: const Text(
-          "Lumber Volume Calculator",
+          "Lumber with Fixed Width",
           style: TextStyle(
             fontSize: 20,
           ),
