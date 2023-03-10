@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forest1/log_volume.dart';
 import 'package:forest1/lumber_page.dart';
+import 'package:forest1/pdf_page.dart';
 import 'package:forest1/rotary_page.dart';
 import 'package:forest1/varied_lumber.dart';
 import 'package:forest1/veneer_volume.dart';
@@ -295,7 +297,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => PDFpage()));
+        },
         tooltip: 'Increment',
         //insert_chart
         child: const Icon(Icons.bookmarks),
@@ -316,7 +321,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             IconButton(
               icon: const Icon(
-                Icons.menu,
+                Icons.calculate_sharp,
                 color: Colors.white,
               ),
               onPressed: () {},

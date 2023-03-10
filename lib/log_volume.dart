@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
+import 'package:forest1/pdf_page.dart';
 
 class LogVolume extends StatefulWidget {
   const LogVolume({Key? key}) : super(key: key);
@@ -419,7 +420,10 @@ class _LogVolumeState extends State<LogVolume> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => PDFpage()));
+        },
         tooltip: 'Increment',
         //insert_chart
         child: const Icon(Icons.bookmarks),
@@ -443,7 +447,9 @@ class _LogVolumeState extends State<LogVolume> {
                 Icons.home,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
           ],
         ),

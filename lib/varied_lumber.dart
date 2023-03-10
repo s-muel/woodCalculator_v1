@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:forest1/pdf_page.dart';
 
 class VariedLumberVolume extends StatefulWidget {
   const VariedLumberVolume({Key? key}) : super(key: key);
@@ -267,7 +268,10 @@ class _VariedLumberVolumeState extends State<VariedLumberVolume> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+           Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => PDFpage()));
+        },
         tooltip: 'Increment',
         //insert_chart
         child: const Icon(Icons.bookmarks),
@@ -291,7 +295,9 @@ class _VariedLumberVolumeState extends State<VariedLumberVolume> {
                 Icons.home,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
           ],
         ),

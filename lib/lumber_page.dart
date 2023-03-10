@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:forest1/pdf_page.dart';
 
 class LumberVolume extends StatefulWidget {
   const LumberVolume({Key? key}) : super(key: key);
@@ -42,9 +43,10 @@ class _LumberVolumeState extends State<LumberVolume> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(50),
-                bottomLeft: Radius.circular(50))),
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(50),
+              bottomLeft: Radius.circular(50)),
+        ),
         title: const Text(
           "Lumber with Fixed Width",
           style: TextStyle(
@@ -296,7 +298,10 @@ class _LumberVolumeState extends State<LumberVolume> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+           Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => PDFpage()));
+        },
         tooltip: 'Increment',
         //insert_chart
         child: const Icon(Icons.bookmarks),
@@ -320,7 +325,9 @@ class _LumberVolumeState extends State<LumberVolume> {
                 Icons.home,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
           ],
         ),
