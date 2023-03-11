@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:forest1/calculator_page.dart';
 import 'package:forest1/log_volume.dart';
 import 'package:forest1/lumber_page.dart';
+import 'package:forest1/passcode_page.dart';
 import 'package:forest1/pdf_page.dart';
 import 'package:forest1/rotary_page.dart';
 import 'package:forest1/varied_lumber.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const PassCodePage(),
     );
   }
 }
