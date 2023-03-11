@@ -67,9 +67,11 @@ class _LogVolumeState extends State<LogVolume> {
     return Scaffold(
       appBar: AppBar(
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(50),
-                bottomLeft: Radius.circular(50))),
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(50),
+            bottomLeft: Radius.circular(50),
+          ),
+        ),
         title: const Text(
           "Timber Log Volume Calculator",
           style: TextStyle(

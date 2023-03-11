@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -39,43 +38,47 @@ class _CalculatorPageState extends State<CalculatorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Calculator"),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(50),
+            bottomLeft: Radius.circular(50),
+          ),
+        ),
+        title: const Text("Calculator"),
       ), //AppBar
-      backgroundColor: Colors.white38,
+      backgroundColor: const Color.fromARGB(207, 255, 255, 255),
       body: Column(
         children: <Widget>[
           Expanded(
-            child: Container(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        userInput,
-                        style: const TextStyle(fontSize: 18, color: Colors.white),
-                      ),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      userInput,
+                      style: const TextStyle(fontSize: 18, color: Colors.black),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(15),
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        answer,
-                        style: const TextStyle(
-                            fontSize: 30,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ]),
-            ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(15),
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      answer,
+                      style: const TextStyle(
+                          fontSize: 30,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ]),
           ),
           Expanded(
             flex: 3,
             child: GridView.builder(
                 itemCount: buttons.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4),
                 itemBuilder: (BuildContext context, int index) {
                   // Clear Button
@@ -152,7 +155,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       },
                       buttonText: buttons[index],
                       color: isOperator(buttons[index])
-                          ? Colors.blueAccent
+                          ? Colors.green
                           : Colors.white,
                       textColor: isOperator(buttons[index])
                           ? Colors.white
@@ -206,9 +209,9 @@ class MyButton extends StatelessWidget {
     return GestureDetector(
       onTap: buttontapped,
       child: Padding(
-        padding: const EdgeInsets.all(0.2),
+        padding: const EdgeInsets.all(7),
         child: ClipRRect(
-          // borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(30),
           child: Container(
             color: color,
             child: Center(
