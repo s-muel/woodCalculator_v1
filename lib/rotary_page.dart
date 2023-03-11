@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forest1/pdf_page.dart';
 
+import 'calculator_page.dart';
+
 class RotaryVolume extends StatefulWidget {
   const RotaryVolume({Key? key}) : super(key: key);
 
@@ -296,7 +298,7 @@ class _RotaryVolumeState extends State<RotaryVolume> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-           Navigator.of(context)
+          Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => PDFpage()));
         },
         tooltip: 'Increment',
@@ -325,6 +327,19 @@ class _RotaryVolumeState extends State<RotaryVolume> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.calculate,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CalculatorPage()));
+              },
+            ),
+            const SizedBox(
+              width: 40,
             ),
           ],
         ),
