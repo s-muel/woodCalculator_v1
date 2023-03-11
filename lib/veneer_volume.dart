@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:forest1/pdf_page.dart';
 
 class VeneerVolume extends StatefulWidget {
   const VeneerVolume({Key? key}) : super(key: key);
@@ -227,7 +228,10 @@ class _VeneerVolumeState extends State<VeneerVolume> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+           Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => PDFpage()));
+        },
         tooltip: 'Increment',
         //insert_chart
         child: const Icon(Icons.bookmarks),
@@ -251,7 +255,9 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                 Icons.home,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
           ],
         ),
