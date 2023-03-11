@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:forest1/calculator_page.dart';
 import 'package:forest1/log_volume.dart';
 import 'package:forest1/lumber_page.dart';
 import 'package:forest1/pdf_page.dart';
@@ -324,7 +325,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 Icons.calculate_sharp,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CalculatorPage()));
+              },
             ),
           ],
         ),
