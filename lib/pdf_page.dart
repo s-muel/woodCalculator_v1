@@ -117,7 +117,7 @@ class PDFpage extends StatelessWidget {
               IconButton(
                 icon: const Icon(
                   Icons.settings,
-                  color: Colors.white,
+                  color: Colors.green,
                 ),
                 onPressed: () {},
               ),

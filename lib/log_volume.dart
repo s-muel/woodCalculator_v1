@@ -4,6 +4,8 @@ import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
 import 'package:forest1/pdf_page.dart';
 
+import 'calculator_page.dart';
+
 class LogVolume extends StatefulWidget {
   const LogVolume({Key? key}) : super(key: key);
 
@@ -67,9 +69,11 @@ class _LogVolumeState extends State<LogVolume> {
     return Scaffold(
       appBar: AppBar(
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(50),
-                bottomLeft: Radius.circular(50))),
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(50),
+            bottomLeft: Radius.circular(50),
+          ),
+        ),
         title: const Text(
           "Timber Log Volume Calculator",
           style: TextStyle(
@@ -450,6 +454,19 @@ class _LogVolumeState extends State<LogVolume> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.calculate,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CalculatorPage()));
+              },
+            ),
+           const SizedBox(
+              width: 40,
             ),
           ],
         ),
