@@ -2,40 +2,42 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forest1/pdf_page.dart';
 
-class VeneerVolume extends StatefulWidget {
-  const VeneerVolume({Key? key}) : super(key: key);
+class VariedLumberVolume extends StatefulWidget {
+  const VariedLumberVolume({Key? key}) : super(key: key);
 
   @override
-  State<VeneerVolume> createState() => _VeneerVolumeState();
+  State<VariedLumberVolume> createState() => _VariedLumberVolumeState();
 }
 
-class _VeneerVolumeState extends State<VeneerVolume> {
+class _VariedLumberVolumeState extends State<VariedLumberVolume> {
   // form Controllers
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController thicknessController = TextEditingController();
-  final TextEditingController areaController = TextEditingController();
+  final TextEditingController totalWidthController = TextEditingController();
   final TextEditingController lengthController = TextEditingController();
   final TextEditingController noOfPiecesController = TextEditingController();
 
   // initial Variables for the card
   String volume = "";
   String thickness = "";
-  String area = "";
+  String totalWidth = "";
   String length = "";
   String noOfPieces = "";
 
   //function for volume
-  List result(double thick, double area) {
+  List result(double thick, double totalWidth, double length) {
     List value = [];
     double innerThickness = thick / 1000;
+    double innerTotalWidth = totalWidth / 1000;
     double volume;
 
-    volume = (innerThickness * area);
+    volume = (innerThickness * innerTotalWidth * length);
 
     value.addAll([
       volume,
       innerThickness,
-      area,
+      innerTotalWidth,
+      length,
     ]);
     return value;
   }
@@ -50,7 +52,7 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                 bottomRight: Radius.circular(50),
                 bottomLeft: Radius.circular(50))),
         title: const Text(
-          "Sliced Veneer Volume",
+          "Lumber with Varied Width",
           style: TextStyle(
             fontSize: 20,
           ),
@@ -100,8 +102,20 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                                 const Icon(
                                     CupertinoIcons.rectangle_expand_vertical,
                                     size: 17),
-                                Text('Area (m2):  $area'),
+                                Text('Total Width:  $totalWidth'),
                               ]),
+                              Row(
+                                children: [
+                                  const Icon(
+                                      CupertinoIcons
+                                          .arrow_left_right_square_fill,
+                                      size: 17),
+                                  Text('Length (m):  $length'),
+                                  const SizedBox(
+                                    width: 7,
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -148,15 +162,38 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                               }
                               return null;
                             },
-                            controller: areaController,
+                            controller: totalWidthController,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               label: Text(
-                                "Area",
+                                "total Width",
                                 style: TextStyle(fontSize: 12),
                               ),
                               border: OutlineInputBorder(),
-                              hintText: 'm2',
+                              hintText: 'mm',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '* Required';
+                              }
+                              return null;
+                            },
+                            controller: lengthController,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              label: Text(
+                                "Length",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              border: OutlineInputBorder(),
+                              hintText: 'm',
                             ),
                           ),
                         ),
@@ -179,12 +216,15 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                               if (_formKey.currentState!.validate()) {
                                 List funcResults = result(
                                   double.parse(thicknessController.text),
-                                  double.parse(areaController.text),
+                                  double.parse(totalWidthController.text),
+                                  double.parse(lengthController.text),
                                 );
                                 setState(() {
                                   volume = funcResults[0].toStringAsFixed(3);
                                   thickness = funcResults[1].toStringAsFixed(5);
-                                  area = funcResults[2].toStringAsFixed(3);
+                                  totalWidth =
+                                      funcResults[2].toStringAsFixed(3);
+                                  length = funcResults[3].toStringAsFixed(3);
                                 });
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -205,14 +245,14 @@ class _VeneerVolumeState extends State<VeneerVolume> {
                                 //clearing the form fields
                                 _formKey.currentState!.reset();
                                 thicknessController.clear();
-                                areaController.clear();
+                                totalWidthController.clear();
                                 lengthController.clear();
                                 noOfPiecesController.clear();
 
                                 // clearing the card results
                                 volume = "";
                                 thickness = "";
-                                area = "";
+                                totalWidth = "";
                                 length = "";
                                 noOfPieces = "";
                               });

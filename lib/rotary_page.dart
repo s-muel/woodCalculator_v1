@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:forest1/pdf_page.dart';
 
 class RotaryVolume extends StatefulWidget {
   const RotaryVolume({Key? key}) : super(key: key);
@@ -46,7 +47,7 @@ class _RotaryVolumeState extends State<RotaryVolume> {
                 bottomRight: Radius.circular(50),
                 bottomLeft: Radius.circular(50))),
         title: const Text(
-          "Rotary Volume Calculator",
+          "Rotary Veneer Volume",
           style: TextStyle(
             fontSize: 20,
           ),
@@ -294,7 +295,10 @@ class _RotaryVolumeState extends State<RotaryVolume> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+           Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => PDFpage()));
+        },
         tooltip: 'Increment',
         //insert_chart
         child: const Icon(Icons.bookmarks),
@@ -318,7 +322,9 @@ class _RotaryVolumeState extends State<RotaryVolume> {
                 Icons.home,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
           ],
         ),

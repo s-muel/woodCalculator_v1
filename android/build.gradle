@@ -29,3 +29,13 @@ subprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
+// mine own 
+  allprojects {
+    repositories {
+      google()
+      mavenCentral()
+      jcenter()
+        }
+       }
